@@ -1,4 +1,4 @@
-package com.pnc;
+package com.pns;
 
 
 import org.springframework.boot.SpringApplication;
