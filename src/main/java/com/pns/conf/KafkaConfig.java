@@ -25,9 +25,7 @@ public class KafkaConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
-
-    @Value(value = "${kafka.group.id}")
-    private String groupId;
+    private final String groupId = "PNS";
 
 
     @Bean
