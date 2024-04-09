@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.pns.dto.KafkaTransferDto;
 import com.pns.dto.MessageDto;
 import com.pns.enums.LogLevel;
-import com.pns.enums.Topics;
 import com.pns.kafka.producer.KafkaProducer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
