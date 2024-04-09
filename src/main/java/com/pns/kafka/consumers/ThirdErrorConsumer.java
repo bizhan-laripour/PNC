@@ -18,10 +18,8 @@ import java.util.List;
 public class ThirdErrorConsumer {
 
     private static final String TOPIC_NAME = "ERROR_TOPIC_3";
-
     private final FailedMessageService failedMessageService;
     private List<MessageDto> messages;
-
     private final FireBaseSender fireBaseSender;
 
     public ThirdErrorConsumer(FailedMessageService failedMessageService, FireBaseSender fireBaseSender) {
