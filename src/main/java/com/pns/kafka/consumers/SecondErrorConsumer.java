@@ -28,7 +28,6 @@ public class SecondErrorConsumer {
         this.fireBaseSender = fireBaseSender;
     }
 
-
     @KafkaListener(topics = SecondErrorConsumer.TOPIC_NAME, containerFactory = "kafkaListenerContainerFactory")
     public void consumer(ConsumerRecord<String, KafkaTransferDto> kafka) {
         try {
