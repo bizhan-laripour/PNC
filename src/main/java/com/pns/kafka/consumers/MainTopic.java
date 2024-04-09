@@ -36,9 +36,8 @@ public class MainTopic {
         Gson gson = new Gson();
         String message = gson.toJson(kafka.value().getObject().toString());
         MessageDto messageDto = gson.fromJson(message, MessageDto.class);
-        messages.add(messageDto);
         try {
-            checkList();
+            checkList(messageDto);
         } catch (Exception exception) {
             for(MessageDto obj : messages){
                 KafkaTransferDto kafkaTransferDto = new KafkaTransferDto();
@@ -52,10 +51,12 @@ public class MainTopic {
     }
 
 
-    private void checkList() {
+    private void checkList(MessageDto messageDto) {
         if (messages.size() == 10) {
             //todo send to firebase
             messages.clear();
+        }else {
+            messages.add(messageDto);
         }
     }
 
