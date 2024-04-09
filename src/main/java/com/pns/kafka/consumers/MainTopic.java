@@ -19,11 +19,8 @@ public class MainTopic {
 
     private static final String TOPIC_NAME = "MAIN_TOPIC";
     private static final String ERROR_TOPIC = "ERROR_TOPIC_1";
-
     private final KafkaProducer kafkaProducer;
-
     private final FireBaseSender fireBaseSender;
-
     private List<MessageDto> messages;
 
 
