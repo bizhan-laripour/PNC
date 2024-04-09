@@ -1,4 +1,4 @@
-package com.pns.kafka;
+package com.pns.kafka.consumers;
 
 
 import com.google.gson.Gson;
@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class FirstErrorConsumer {
 
 
-    private static final String TOPIC_NAME = "MAIN_TOPIC";
+    private static final String TOPIC_NAME = "ERROR_TOPIC_1";
+    private static final String ERROR_TOPIC = "ERROR_TOPIC_2";
 
     private final KafkaProducer kafkaProducer;
 
@@ -25,11 +26,16 @@ public class FirstErrorConsumer {
 
     @KafkaListener(topics = FirstErrorConsumer.TOPIC_NAME, containerFactory = "kafkaListenerContainerFactory")
     public void consumeFromDirectTopic(ConsumerRecord<String, KafkaTransferDto> kafka) {
-        Gson gson = new Gson();
-        String message = gson.toJson(kafka.value().getObject().toString());
-        MessageDto messageDto = gson.fromJson(message, MessageDto.class);
-        messageDto.setLogLevel(LogLevel.FIRST);
-        //send to main topic for firebase
+        try {
+            Gson gson = new Gson();
+            String message = gson.toJson(kafka.value().getObject().toString());
+            MessageDto messageDto = gson.fromJson(message, MessageDto.class);
+            // todo  send  for firebase
+        }catch (Exception ex){
+            KafkaTransferDto kafkaTransferDto = kafka.value();
+            kafkaTransferDto.setLogLevel(LogLevel.SECOND);
+            kafkaProducer.send(ERROR_TOPIC , kafkaTransferDto);
+        }
     }
 
 }

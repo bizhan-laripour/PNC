@@ -1,23 +1,21 @@
-package com.pns.kafka;
+package com.pns.kafka.consumers;
 
 
 import com.google.gson.Gson;
 import com.pns.dto.KafkaTransferDto;
 import com.pns.dto.MessageDto;
 import com.pns.enums.LogLevel;
-import com.pns.enums.Topics;
 import com.pns.kafka.producer.KafkaProducer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class MainTopic {
 
 
-    private static final String TOPIC_NAME = "ERROR_TOPIC_1";
+    private static final String TOPIC_NAME = "MAIN_TOPIC";
+    private static final String ERROR_TOPIC = "ERROR_TOPIC_1";
 
     private final KafkaProducer kafkaProducer;
 
@@ -39,7 +37,7 @@ public class MainTopic {
         }catch (Exception exception){
             KafkaTransferDto dto = kafka.value();
             dto.setLogLevel(LogLevel.FIRST);
-            kafkaProducer.send(TOPIC_NAME , dto);
+            kafkaProducer.send(ERROR_TOPIC , dto);
         }
     }
 

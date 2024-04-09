@@ -1,8 +1,16 @@
-package com.pns.dto;
+package com.pns.entity;
 
-import com.pns.enums.LogLevel;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-public class MessageDto {
+@Entity
+public class FailedMessages {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String uuId;
 
@@ -12,6 +20,13 @@ public class MessageDto {
 
     private String receiver;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUuId() {
         return uuId;
@@ -44,5 +59,4 @@ public class MessageDto {
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
-
 }
