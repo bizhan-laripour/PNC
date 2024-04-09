@@ -1,6 +1,5 @@
 package com.pns.kafka.consumers;
 
-
 import com.google.gson.Gson;
 import com.pns.dto.KafkaTransferDto;
 import com.pns.dto.MessageDto;
@@ -21,11 +20,8 @@ public class FirstErrorConsumer {
 
     private static final String TOPIC_NAME = "ERROR_TOPIC_1";
     private static final String ERROR_TOPIC = "ERROR_TOPIC_2";
-
     private List<MessageDto> messages;
-
     private final FireBaseSender fireBaseSender;
-
     private final KafkaProducer kafkaProducer;
 
     public FirstErrorConsumer(FireBaseSender fireBaseSender, KafkaProducer kafkaProducer) {
