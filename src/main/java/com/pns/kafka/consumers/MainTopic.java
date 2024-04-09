@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.pns.dto.KafkaTransferDto;
 import com.pns.dto.MessageDto;
 import com.pns.enums.LogLevel;
+import com.pns.firebase.FireBaseSender;
 import com.pns.kafka.producer.KafkaProducer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,16 +22,19 @@ public class MainTopic {
 
     private final KafkaProducer kafkaProducer;
 
+    private final FireBaseSender fireBaseSender;
+
     private List<MessageDto> messages;
 
 
-    public MainTopic(KafkaProducer kafkaProducer) {
+    public MainTopic(KafkaProducer kafkaProducer, FireBaseSender fireBaseSender) {
         this.kafkaProducer = kafkaProducer;
+        this.fireBaseSender = fireBaseSender;
     }
 
 
     @KafkaListener(topics = MainTopic.TOPIC_NAME, containerFactory = "kafkaListenerContainerFactory")
-    public void consumeFromDirectTopic(ConsumerRecord<String, KafkaTransferDto> kafka) {
+    public void consumer(ConsumerRecord<String, KafkaTransferDto> kafka) {
 
 
         Gson gson = new Gson();
@@ -53,7 +57,7 @@ public class MainTopic {
 
     private void checkList(MessageDto messageDto) {
         if (messages.size() == 10) {
-            //todo send to firebase
+            fireBaseSender.sendMessage(messages);
             messages.clear();
         }else {
             messages.add(messageDto);
