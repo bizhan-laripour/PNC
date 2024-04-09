@@ -10,6 +10,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MainTopic {
 
@@ -19,7 +21,8 @@ public class MainTopic {
 
     private final KafkaProducer kafkaProducer;
 
-//    private static List<MessageDto> list;
+    private List<MessageDto> messages;
+
 
     public MainTopic(KafkaProducer kafkaProducer) {
         this.kafkaProducer = kafkaProducer;
@@ -29,15 +32,30 @@ public class MainTopic {
     @KafkaListener(topics = MainTopic.TOPIC_NAME, containerFactory = "kafkaListenerContainerFactory")
     public void consumeFromDirectTopic(ConsumerRecord<String, KafkaTransferDto> kafka) {
 
+
+        Gson gson = new Gson();
+        String message = gson.toJson(kafka.value().getObject().toString());
+        MessageDto messageDto = gson.fromJson(message, MessageDto.class);
+        messages.add(messageDto);
         try {
-            Gson gson = new Gson();
-            String message = gson.toJson(kafka.value().getObject().toString());
-            MessageDto messageDto = gson.fromJson(message, MessageDto.class);
-            // todo send to firebase
-        }catch (Exception exception){
-            KafkaTransferDto dto = kafka.value();
-            dto.setLogLevel(LogLevel.FIRST);
-            kafkaProducer.send(ERROR_TOPIC , dto);
+            checkList();
+        } catch (Exception exception) {
+            for(MessageDto obj : messages){
+                KafkaTransferDto kafkaTransferDto = new KafkaTransferDto();
+                kafkaTransferDto.setObject(obj);
+                kafkaTransferDto.setLogLevel(LogLevel.FIRST);
+                kafkaTransferDto.setTopic(ERROR_TOPIC);
+                kafkaProducer.send(ERROR_TOPIC, kafkaTransferDto);
+            }
+
+        }
+    }
+
+
+    private void checkList() {
+        if (messages.size() == 10) {
+            //todo send to firebase
+            messages.clear();
         }
     }
 

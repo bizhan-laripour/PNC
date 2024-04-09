@@ -1,7 +1,7 @@
 package com.pns.conf;
 
 
-import com.pns.dto.ConsumerDto;
+import com.pns.dto.KafkaTransferDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -29,17 +29,17 @@ public class KafkaConfig {
 
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ConsumerDto> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, ConsumerDto> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, KafkaTransferDto> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, KafkaTransferDto> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
 
 
-    public ConsumerFactory<String, ConsumerDto> consumerFactory() {
+    public ConsumerFactory<String, KafkaTransferDto> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        JsonDeserializer<ConsumerDto> deserializer = new JsonDeserializer<>(ConsumerDto.class, false);
+        JsonDeserializer<KafkaTransferDto> deserializer = new JsonDeserializer<>(KafkaTransferDto.class, false);
         deserializer.addTrustedPackages("*");
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
@@ -48,7 +48,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public ProducerFactory<String, ConsumerDto> producerFactory() {
+    public ProducerFactory<String, KafkaTransferDto> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -58,7 +58,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, ConsumerDto> kafkaTemplate() {
+    public KafkaTemplate<String, KafkaTransferDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }
