@@ -1,6 +1,5 @@
 package com.pns.firebase;
 
-
 import com.pns.dto.MessageDto;
 import org.springframework.stereotype.Component;
 
