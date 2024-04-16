@@ -1,6 +1,5 @@
 package com.pns.conf;
 
-
 import com.pns.dto.KafkaTransferDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
