@@ -19,7 +19,7 @@ public class ThirdErrorConsumer {
 
     private static final String TOPIC_NAME = "ERROR_TOPIC_3";
     private final FailedMessageService failedMessageService;
-    private List<MessageDto> messages;
+    private List<MessageDto> messages = new ArrayList<>();
     private final FireBaseSender fireBaseSender;
 
     public ThirdErrorConsumer(FailedMessageService failedMessageService, FireBaseSender fireBaseSender) {
