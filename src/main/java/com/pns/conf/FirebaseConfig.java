@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Configuration
-public class FireBaseConfig {
+public class FirebaseConfig {
 
 
     private final FirebaseProperties firebaseProperties;
 
-    public FireBaseConfig(FirebaseProperties properties) {
+    public FirebaseConfig(FirebaseProperties properties) {
         this.firebaseProperties = properties;
     }
 
