@@ -21,7 +21,7 @@ public class FirstErrorConsumer {
 
     private static final String TOPIC_NAME = "ERROR_TOPIC_1";
     private static final String ERROR_TOPIC = "ERROR_TOPIC_2";
-    private List<MessageDto> messages;
+    private List<MessageDto> messages = new ArrayList<>();
     private final FireBaseSender fireBaseSender;
     private final KafkaProducer kafkaProducer;
 

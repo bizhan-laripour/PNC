@@ -1,6 +1,5 @@
 package com.pns.dto;
 
-import com.pns.enums.LogLevel;
 
 public class MessageDto {
 

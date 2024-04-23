@@ -11,6 +11,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -21,7 +22,7 @@ public class MainTopic {
     private static final String ERROR_TOPIC = "ERROR_TOPIC_1";
     private final KafkaProducer kafkaProducer;
     private final FireBaseSender fireBaseSender;
-    private List<MessageDto> messages;
+    private List<MessageDto> messages = new ArrayList<>();
 
 
     public MainTopic(KafkaProducer kafkaProducer, FireBaseSender fireBaseSender) {

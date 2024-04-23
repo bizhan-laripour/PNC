@@ -12,13 +12,9 @@ public class FailedMessages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String uuId;
-
     private String message;
-
     private String sender;
-
     private String receiver;
 
     public Long getId() {

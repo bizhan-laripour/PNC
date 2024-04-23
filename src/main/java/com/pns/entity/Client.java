@@ -1,9 +1,8 @@
 package com.pns.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Client {
@@ -11,10 +10,12 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long clientId;
-
     private String browser;
+
+    @OneToMany
+    @JoinColumn(name = "client_id")
+    private List<Device> devices;
 
     public Long getId() {
         return id;
@@ -38,5 +39,13 @@ public class Client {
 
     public void setBrowser(String browser) {
         this.browser = browser;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 }
