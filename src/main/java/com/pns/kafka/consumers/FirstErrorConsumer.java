@@ -24,6 +24,7 @@ public class FirstErrorConsumer {
     private List<MessageDto> messages = new ArrayList<>();
     private final FireBaseSender fireBaseSender;
     private final KafkaProducer kafkaProducer;
+    private final String FIREBASE_TOPIC = "FIREBASE_TOPIC";
 
     public FirstErrorConsumer(FireBaseSender fireBaseSender, KafkaProducer kafkaProducer) {
         this.fireBaseSender = fireBaseSender;
@@ -52,7 +53,7 @@ public class FirstErrorConsumer {
             }
         }
         try {
-            fireBaseSender.sendMessage(list);
+            fireBaseSender.sendMessage(list , FIREBASE_TOPIC);
         } catch (Exception ex) {
             for (MessageDto messageDto : messages) {
                 KafkaTransferDto kafkaTransferDto = new KafkaTransferDto();

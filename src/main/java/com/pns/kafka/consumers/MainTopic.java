@@ -23,6 +23,7 @@ public class MainTopic {
     private final KafkaProducer kafkaProducer;
     private final FireBaseSender fireBaseSender;
     private List<MessageDto> messages = new ArrayList<>();
+    private final String FIREBASE_TOPIC = "FIREBASE_TOPIC";
 
 
     public MainTopic(KafkaProducer kafkaProducer, FireBaseSender fireBaseSender) {
@@ -55,7 +56,7 @@ public class MainTopic {
 
     private void checkList(MessageDto messageDto) {
         if (messages.size() == 10) {
-            fireBaseSender.sendMessage(messages);
+            fireBaseSender.sendMessage(messages , FIREBASE_TOPIC);
             messages.clear();
         }else {
             messages.add(messageDto);
