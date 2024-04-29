@@ -9,6 +9,3 @@ management:
     web:
       exposure:
         include: refresh
-first-schedule-rate: 60000
-second-schedule-rate: 120000
-third-schedule-rate: 180000
