@@ -41,7 +41,7 @@ public class FirstErrorConsumer {
     }
 
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRateString = "${first-schedule-rate}")
     public void sendToFireBase() {
         List<MessageDto> list = new ArrayList<>(messages);
         for (int i = 0; i < messages.size(); i++) {
