@@ -21,6 +21,7 @@ public class ThirdErrorConsumer {
     private final FailedMessageService failedMessageService;
     private List<MessageDto> messages = new ArrayList<>();
     private final FireBaseSender fireBaseSender;
+    private final String FIREBASE_TOPIC = "FIREBASE_TOPIC";
 
     public ThirdErrorConsumer(FailedMessageService failedMessageService, FireBaseSender fireBaseSender) {
         this.failedMessageService = failedMessageService;
@@ -51,7 +52,7 @@ public class ThirdErrorConsumer {
             }
         }
         try {
-            fireBaseSender.sendMessage(list);
+            fireBaseSender.sendMessage(list , FIREBASE_TOPIC);
         }catch (Exception ex){
             for(MessageDto obj : messages){
                 failedMessageService.save(MessageMapper.getInstance().dtoToEntity(obj));
